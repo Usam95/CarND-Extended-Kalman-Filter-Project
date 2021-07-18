@@ -46,6 +46,9 @@ class KalmanFilter {
    */
   void UpdateEKF(const Eigen::VectorXd &z);
 
+  void UpdateCommon(const VectorXd &z, const MatrixXd &H, const MatrixXd &R, bool is_ekf);
+
+
   // state vector
   Eigen::VectorXd x_;
 
