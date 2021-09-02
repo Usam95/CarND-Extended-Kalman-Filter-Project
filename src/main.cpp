@@ -2,6 +2,7 @@
 #include <uWS/uWS.h>
 #include <iostream>
 #include "json.hpp"
+#include <cmath>
 #include "FusionEKF.h"
 #include "tools.h"
 

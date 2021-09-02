@@ -2,6 +2,7 @@
 #define KALMAN_FILTER_H_
 
 #include "Eigen/Dense"
+#include "tools.h"
 
 class KalmanFilter {
  public:
@@ -25,7 +26,7 @@ class KalmanFilter {
    * @param Q_in Process covariance matrix
    */
   void Init(Eigen::VectorXd &x_in, Eigen::MatrixXd &P_in, Eigen::MatrixXd &F_in,
-            Eigen::MatrixXd &H_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &Q_in);
+      Eigen::MatrixXd &H_in, Eigen::MatrixXd &R_lidar_in, Eigen::MatrixXd &R_radar_in, Eigen::MatrixXd &Q_in);
 
   /**
    * Prediction Predicts the state and the state covariance
@@ -46,7 +47,7 @@ class KalmanFilter {
    */
   void UpdateEKF(const Eigen::VectorXd &z);
 
-  void UpdateCommon(const VectorXd &z, const MatrixXd &H, const MatrixXd &R, bool is_ekf);
+  void UpdateCommon(const Eigen::VectorXd &z, const Eigen::MatrixXd &H, const Eigen::MatrixXd &R, bool is_ekf);
 
 
   // state vector
@@ -64,8 +65,17 @@ class KalmanFilter {
   // measurement matrix
   Eigen::MatrixXd H_;
 
-  // measurement covariance matrix
-  Eigen::MatrixXd R_;
+  // measurement covariance matrix for lidar
+  Eigen::MatrixXd R_lidar_;
+
+  // measurement covariance matrix for radar
+  Eigen::MatrixXd R_radar_;
+
+    // identity matrix
+  static Eigen::MatrixXd I_;
+
+  // tools class instance
+  static Tools tools_;
 };
 
 #endif // KALMAN_FILTER_H_

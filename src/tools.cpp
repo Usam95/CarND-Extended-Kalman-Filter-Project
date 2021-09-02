@@ -23,7 +23,7 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 	//  * the estimation vector size should equal ground truth vector size
 
 	if((estimations.size() != ground_truth.size()) || (estimations.size() == 0) ){
-		cout << "Couldn't calculate rmse!" << endl;
+		std::cout << "Couldn't calculate rmse!" << std::endl;
 		return rmse;
 	}
 
@@ -38,24 +38,24 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 	}
 
 	// calculate the mean
-	rmse = rmse / estimations.size()
+	rmse = rmse / estimations.size();
 
 	// calculate the squared root
-	rmse = rmse.array().sqrt()
+	rmse = rmse.array().sqrt();
 
-	return rmse
+	return rmse;
 }
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   /*
    * Calculation of a Jacobian.
    */
-	MatrixXd Hj(3,4)
+	MatrixXd Hj(3,4);
 
-	const double & px = x_state(0)
-	const double & py = x_state(1)
-	const double & vx = x_state(2)
-	const double & vy = x_state(3)
+	const double & px = x_state(0);
+	const double & py = x_state(1);
+	const double & vx = x_state(2);
+	const double & vy = x_state(3);
 
 	//pre-compute a set of terms to avoid repeated calculation
 	double c1 = px * px + py * py;
@@ -64,7 +64,7 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
 
 	//check division by zero
 	if(fabs(c1) < 0.0001){
-		cout << "CalculateJacobian () - Error - Division by Zero" << endl;
+		std::cout << "CalculateJacobian () - Error - Division by Zero" << std::endl;
 		return Hj;
 	}
 
@@ -89,7 +89,7 @@ VectorXd Tools::ConvertFromCartesianToPolarCoords(const VectorXd &v_cart) {
 
 	// protection from division by zero
 	if (rho < 0.000001) {
-	rho = 0.000001;
+		rho = 0.000001;
 	}
 
 	rho_dot = (px * vx + py * vy) / rho;

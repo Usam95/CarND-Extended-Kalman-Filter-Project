@@ -83,7 +83,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
                                                0.0,    // we have no info about the velocity for lidar measurement
                                                0.0;
     } else {
-        cerr << "unknown sensor type of measurement; skipping initialization" << endl;
+        std::cerr << "unknown sensor type of measurement; skipping initialization" << std::endl;
         return;
     }
 
@@ -106,6 +106,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
         //                            Eigen initializes matrices with 0's by default)
         MatrixXd Q(4, 4);
 
+        ekf_.Init(x, P, F, H_laser_, R_laser_, R_radar_, Q);
         ekf_.Init(x, P, F, H_laser_, R_laser_, R_radar_, Q);
 
         previous_timestamp_ = measurement_pack.timestamp_;
